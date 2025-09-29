@@ -1,0 +1,31 @@
+h1, h2, h3, h4, h5, h6, p, li, a {
+    color: #F0EBCC;
+}
+body {
+    background-color: #04009A;
+}
+
+div {
+    background-color: #77ACF1;
+}
+
+.hero-card {
+    text-align: center;
+    padding: 3rem;
+    margin: 1rem;
+}
+
+.card {
+    background-color: #3EDBF0;
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 3rem;
+}
