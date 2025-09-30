@@ -1,8 +1,10 @@
 package com.mattevaitcs.hospital_management;
 
 import com.github.javafaker.Faker;
+import com.mattevaitcs.hospital_management.entities.Doctor;
 import com.mattevaitcs.hospital_management.entities.Patient;
 import com.mattevaitcs.hospital_management.entities.enums.BiologicalSex;
+import com.mattevaitcs.hospital_management.repositories.DoctorRepository;
 import com.mattevaitcs.hospital_management.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +22,9 @@ public class HospitalManagementApplication implements CommandLineRunner {
     @Autowired
     private PatientRepository patientRepository;
 
+    @Autowired
+    private DoctorRepository doctorRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(HospitalManagementApplication.class, args);
 	}
@@ -36,9 +41,46 @@ public class HospitalManagementApplication implements CommandLineRunner {
 
             return;
         }
+        List<String> specializations = new ArrayList<>(List.of(
+                "Cardiology",
+                "Dermatology",
+                "Endocrinology",
+                "Gastroenterology",
+                "Hematology",
+                "Neurology",
+                "Obstetrics and Gynecology",
+                "Oncology",
+                "Ophthalmology",
+                "Orthopedics",
+                "Otolaryngology (ENT)",
+                "Pediatrics",
+                "Psychiatry",
+                "Pulmonology",
+                "Radiology",
+                "Rheumatology",
+                "Surgery",
+                "Urology"
+        ));
         Faker faker = new Faker();
         Random random = new Random();
         List<Patient> patients = new ArrayList<>();
+        List<Doctor> doctors = new ArrayList<>();
+
+        for (int i = 0; i < 15; i++) {
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String department = faker.medical().hospitalName();
+            String specialization = specializations.get(random.nextInt(specializations.size()));
+            String phone = faker.phoneNumber().cellPhone();
+            Doctor doctor = Doctor.builder()
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .department(department)
+                    .phone(phone)
+                    .specialization(specialization)
+                    .build();
+            doctors.add(doctor);
+        }
 
         for (int i = 0; i < 50; i++) {
             String fname = faker.name().firstName();
@@ -58,13 +100,13 @@ public class HospitalManagementApplication implements CommandLineRunner {
                     phone,
                     address,
                     allergies,
-                    null,
+                    doctors.get(random.nextInt(doctors.size())),
                     null
             );
             patients.add(patient);
             System.out.println(patient);
         }
-
+        doctorRepository.saveAll(doctors);
         patientRepository.saveAll(patients);
         System.out.println("Sample patients generated and saved to the database.");
     }

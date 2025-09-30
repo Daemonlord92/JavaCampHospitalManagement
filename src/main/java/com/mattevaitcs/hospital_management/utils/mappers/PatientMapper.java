@@ -6,6 +6,7 @@ import com.mattevaitcs.hospital_management.entities.Patient;
 import com.mattevaitcs.hospital_management.entities.enums.BiologicalSex;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class PatientMapper {
@@ -14,8 +15,8 @@ public class PatientMapper {
                 0,
                 request.firstName(),
                 request.lastName(),
-                LocalDate.parse(request.dateOfBirth()),
-                BiologicalSex.valueOf(request.biologicalSex()),
+                request.dateOfBirth(),
+                BiologicalSex.valueOf(request.biologicalSex().toUpperCase()),
                 request.phone(),
                 request.address(),
                 List.of(request.allergies().split(",")),
@@ -33,6 +34,20 @@ public class PatientMapper {
                 patient.getDob().toString(),
                 patient.getBiologicalSex().name(),
                 String.join(",", patient.getAllergies())
+        );
+    }
+
+    public static Patient toEntity(PatientInformation patientInformation) {
+        return new Patient(
+                patientInformation.id(),
+                patientInformation.firstName(),
+                patientInformation.lastName(),
+                LocalDate.parse(patientInformation.dateOfBirth()),
+                BiologicalSex.valueOf(patientInformation.biologicalSex().toUpperCase()),
+                patientInformation.phoneNumber(),
+                patientInformation.address(),
+                Arrays.stream(patientInformation.allergies().split(",")).toList(),
+                null, null
         );
     }
 }

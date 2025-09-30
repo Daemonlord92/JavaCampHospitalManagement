@@ -8,6 +8,8 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 public record PostNewPatientRequest(
         @NotNull(message = "First name is required")
         @Size(max = 150, min = 2, message = "First name must be between 2 and 150 characters")
@@ -17,7 +19,7 @@ public record PostNewPatientRequest(
         String lastName,
         @NotNull(message = "Date of birth is required")
         @PastOrPresent(message = "Date of birth must be in the past or present")
-        String dateOfBirth,
+        LocalDate dateOfBirth,
         @NotNull(message = "Biological sex is required")
         @ValueOfEnum(enumClass = BiologicalSex.class)
         String biologicalSex,
@@ -31,4 +33,16 @@ public record PostNewPatientRequest(
         @StringToArray
         String allergies
 ) {
+
+    public PostNewPatientRequest() {
+        this(
+                "John",
+                "Doe",
+                LocalDate.parse("1999-01-01"),
+                "Male",
+                "9072728359",
+                "123 String St",
+                ""
+        );
+    }
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVA Hospital | Add Patient</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/global-styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>Add New Patient</h2>
+        <form th:action="@{/add-patient}" th:object="${newPatient}" method="post">
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" th:field="*{firstName}" id="firstName" required>
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" th:field="*{lastName}" id="lastName" required>
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
+            <div>
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" required>
+                <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+            </div>
+            <div>
+                <label for="biologicalSex">Biological Sex:</label>
+                <select th:field="*{biologicalSex}" id="biologicalSex" required>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span th:if="${#fields.hasErrors('biologicalSex')}" th:errors="*{biologicalSex}"></span>
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="text" th:field="*{phone}" id="phone" required>
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input type="text" th:field="*{address}" id="address" required>
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
+            <div>
+                <label for="allergies">Allergies (comma separated):</label>
+                <input type="text" th:field="*{allergies}" id="allergies">
+                <span th:if="${#fields.hasErrors('allergies')}" th:errors="*{allergies}"></span>
+            </div>
+            <div>
+                <button type="submit">Add Patient</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

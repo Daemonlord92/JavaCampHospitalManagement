@@ -1,4 +1,4 @@
-h1, h2, h3, h4, h5, h6, p, li, a {
+h1, h2, h3, h4, h5, h6, p, li, a, td, th {
     color: #F0EBCC;
 }
 body {
@@ -28,4 +28,26 @@ div {
     gap: 1rem;
     margin: 1rem;
     padding: 3rem;
+}
+
+div[id^="patientInfo"] {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+    z-index: 1000;
+    overflow: auto;
+}
+
+/* Center the card */
+div[id^="patientInfo"] .card {
+    position: relative;
+    margin: 5% auto;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

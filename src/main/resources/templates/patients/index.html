@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EVA Hospital | Patient Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/global-styles.css">
+</head>
+<body>
+    <div>
+        <h2>EVA Patient Data Index</h2>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Date of Birth
+                    </th>
+                    <th>
+                        Biological Sex
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
+                </tr>
+            </thead>
+            <tbody th:each="patient : ${patients}">
+                <tr>
+                    <td th:text="${patient.firstName()} + ' ' + ${patient.lastName()}"></td>
+                    <td th:text="${patient.dateOfBirth()}"></td>
+                    <td th:text="${patient.biologicalSex()}"></td>
+                    <td th:text="${patient.phoneNumber()}"></td>
+                    <td>
+                        <button th:attr="onclick=|showModal('patientInfo' + ${patient.id()})|">
+                            View Details
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div
+            th:each="patient : ${patients}"
+            th:attr="id=${'patientInfo' + patient.id()}"
+            style="display: none"
+    >
+        <div class="card">
+            <h4>Patient Details</h4>
+            <h5>Patient Name: <span
+                    th:text="${patient.firstName()} + ' ' + ${patient.lastName()}"
+            ></span> </h5>
+            <p>Date of birth: <span th:text="${patient.dateOfBirth()}"></span></p>
+            <p>Biological Sex: <span th:text="${patient.biologicalSex()}"></span></p>
+            <p>Phone Number: <span th:text="${patient.phoneNumber()}"></span></p>
+            <p>Address <span th:text="${patient.address()}"></span></p>
+            <div th:each="allergy : ${patient.allergies().split(',')}">
+                <p th:text="${allergy}"></p>
+            </div>
+            <button th:attr="onclick=|hideModal('patientInfo' + ${patient.id()})|">
+                Close
+            </button>
+        </div>
+    </div>
+    <script>
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
