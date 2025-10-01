@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-
+    List<Doctor> findAllBySpecializationIgnoreCase(String specialization);
 
     List<Doctor> findAllByDepartmentIgnoreCaseOrderByLastNameAsc(String department);
 
