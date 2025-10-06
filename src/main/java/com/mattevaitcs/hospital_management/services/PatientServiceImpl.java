@@ -39,4 +39,11 @@ public class PatientServiceImpl implements PatientService{
                 .map(PatientMapper::toDto)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with id " + id + " not found"));
     }
+
+    @Override
+    public void deletePatientById(long id) {
+        if(!patientRepository.existsById(id))
+            throw new PatientNotFoundException("Patient with id of " + id + " not found!");
+        patientRepository.deleteById(id);
+    }
 }

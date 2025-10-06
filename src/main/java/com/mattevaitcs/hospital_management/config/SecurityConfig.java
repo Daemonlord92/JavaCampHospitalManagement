@@ -22,14 +22,12 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(htp ->
-                            htp.requestMatchers("/", "/css/**", "/js/**", "/register")
-                                    .permitAll()
-                                    .anyRequest()
-                                    .authenticated()
+//                            htp.requestMatchers("/", "/css/**", "/js/**", "/register")
+//                                    .permitAll()
+//                                    .anyRequest()
+//                                    .authenticated()
+                        htp.anyRequest().permitAll()
                         )
-                .formLogin( form -> form
-                        .defaultSuccessUrl("/patients", true)
-                        .permitAll())
                 .authenticationProvider(authenticationProvider)
                 .build();
 
