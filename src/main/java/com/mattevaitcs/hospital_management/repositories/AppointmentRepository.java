@@ -10,6 +10,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findAllByStatusOrderByDateAsc(Status status);
-
+    List<Appointment> findAllByPatientId(long id);
+    List<Appointment> findAllByDoctorId(long id);
 }
 
