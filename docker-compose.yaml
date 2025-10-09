@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: eva_hospital
+      POSTGRES_USER: eva_spring
+      POSTGRES_PASSWORD: "@Ev@ItCS"
+    networks:
+      - eva_hospital_network
+    ports:
+      - "5434:5432"
+    volumes:
+      - eva_hospital_db:/var/lib/postgres
+  webserver:
+    depends_on:
+      - postgres
+    build: ./
+    restart: on-failure
+    networks:
+      - eva_hospital_network
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eva_hospital
+      SPRING_DATASOURCE_USERNAME: eva_spring
+      SPRING_DATASOURCE_PASSWORD: "@Ev@ItCS"
+    stdin_open: true
+    tty: true
+
+networks:
+  eva_hospital_network:
+
+volumes:
+  eva_hospital_db:
+
