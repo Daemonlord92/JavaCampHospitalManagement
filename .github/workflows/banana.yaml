@@ -17,7 +17,7 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
       - name: Build with Maven
-        run: cd JavaCampHospitalManagement && mvn clean package -DskipTests
+        run: mvn clean package -DskipTests
       - name: Copy JAR to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
