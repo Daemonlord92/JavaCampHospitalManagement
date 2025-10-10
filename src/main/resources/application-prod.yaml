@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:eva_hospital
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
