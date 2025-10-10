@@ -26,7 +26,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "target/hospital-management-*.jar"
           target: "/home/${{ secrets.EC2_USER }}/"
-          strip_components: 2
       - name: Deploy and Run JAR on EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
