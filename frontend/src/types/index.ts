@@ -8,3 +8,13 @@ export interface PatientInformation {
   biologicalSex: string;
   allergies?: string;
 }
+
+export type DoctorInformation = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  department: string;
+  phone: string;
+  specialization: string;
+  patients?: PatientInformation[];
+};

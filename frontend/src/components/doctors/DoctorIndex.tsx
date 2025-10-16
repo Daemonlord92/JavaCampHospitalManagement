@@ -1,47 +1,53 @@
-import type { PatientInformation } from "../../types";
+import type { DoctorInformation } from "../../types";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import InformationModal from "../shared/InformationModal";
 
-const columns: GridColDef<PatientInformation>[] = [
+const columns: GridColDef<DoctorInformation>[] = [
   { field: "id", headerName: "ID", align: "left" },
   {
     field: "fullName",
     headerName: "Full Name",
-    align: "right",
+    align: "center",
     width: 150,
     renderCell: (params) => (
       <Button variant="text" onClick={params.row.handleOpen}>
         {`${params.row.firstName} ${params.row.lastName}`}
       </Button>
     ),
+    sortable: true,
+  },
+  {
+    field: "specialization",
+    headerName: "Specialization",
+    align: "right",
+    sortable: true,
   },
 ];
 
-const PatientIndex = ({
-  listOfPatients,
+const DoctorIndex = ({
+  listOfDoctors,
 }: {
-  listOfPatients: PatientInformation[];
+  listOfDoctors: DoctorInformation[];
 }) => {
   const [isOpen, setOpen] = useState(false);
-  const [selectedPatient, setSelectedPatient] =
-    useState<PatientInformation | null>(null);
+  const [selectedDoctor, setSelectedDoctor] =
+    useState<DoctorInformation | null>(null);
 
-  const handleOpen = (patient: PatientInformation) => {
-    setSelectedPatient(patient);
+  const handleOpen = (doctor: DoctorInformation) => {
+    setSelectedDoctor(doctor);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedPatient(null);
+    setSelectedDoctor(null);
   };
 
-  // Add handleOpen to each row for the renderCell
-  const rows = listOfPatients.map((patient) => ({
-    ...patient,
-    handleOpen: () => handleOpen(patient),
+  const rows = listOfDoctors.map((doctor) => ({
+    ...doctor,
+    handleOpen: () => handleOpen(doctor),
   }));
 
   return (
@@ -58,9 +64,9 @@ const PatientIndex = ({
           },
         }}
       />
-      {selectedPatient && (
+      {selectedDoctor && (
         <InformationModal
-          information={selectedPatient}
+          information={selectedDoctor}
           isOpen={isOpen}
           handleOpen={handleClose}
         />
@@ -69,4 +75,4 @@ const PatientIndex = ({
   );
 };
 
-export default PatientIndex;
+export default DoctorIndex;
