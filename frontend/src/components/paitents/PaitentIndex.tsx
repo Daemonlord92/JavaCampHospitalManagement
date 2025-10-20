@@ -1,18 +1,30 @@
-import type { PatientInformation } from "../../types";
+import type {
+  PatientInformation,
+  PatientInformationWithMethods,
+} from "../../types";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import InformationModal from "../shared/InformationModal";
 
-const columns: GridColDef<PatientInformation>[] = [
-  { field: "id", headerName: "ID", align: "left" },
+const columns: GridColDef<PatientInformationWithMethods>[] = [
+  {
+    field: "id",
+    headerName: "ID",
+    align: "left",
+    renderCell: (params) => (
+      <Button variant="text" onClick={() => params.row.handleDoctors()}>
+        {params.row.id}
+      </Button>
+    ),
+  },
   {
     field: "fullName",
     headerName: "Full Name",
     align: "right",
     width: 150,
     renderCell: (params) => (
-      <Button variant="text" onClick={params.row.handleOpen}>
+      <Button variant="text" onClick={() => params.row.handleOpen()}>
         {`${params.row.firstName} ${params.row.lastName}`}
       </Button>
     ),
@@ -20,9 +32,11 @@ const columns: GridColDef<PatientInformation>[] = [
 ];
 
 const PatientIndex = ({
-  listOfPatients,
+  listOfPatients = [],
+  handleDoctors,
 }: {
   listOfPatients: PatientInformation[];
+  handleDoctors: (patientId: number) => void;
 }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] =
@@ -42,6 +56,7 @@ const PatientIndex = ({
   const rows = listOfPatients.map((patient) => ({
     ...patient,
     handleOpen: () => handleOpen(patient),
+    handleDoctors: () => handleDoctors(patient.id),
   }));
 
   return (
