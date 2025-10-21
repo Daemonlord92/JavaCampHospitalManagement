@@ -29,11 +29,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfig()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(htp ->
-//                            htp.requestMatchers("/", "/css/**", "/js/**", "/register")
-//                                    .permitAll()
-//                                    .anyRequest()
-//                                    .authenticated()
-                        htp.anyRequest().permitAll()
+                            htp.requestMatchers("/api/v1/auth/login")
+                                    .permitAll()
+                                    .anyRequest()
+                                    .authenticated()
+
                         )
                 .sessionManagement(ses -> ses.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

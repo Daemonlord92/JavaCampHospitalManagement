@@ -15,7 +15,7 @@ import type {
   PatientInformation,
   PostNewPatientRequest,
 } from "../../types/index";
-import { JSX, useState } from "react";
+import { type JSX, useState } from "react";
 import { postNewPatient } from "../../../api";
 
 const patientSchema = Yup.object({
@@ -198,7 +198,7 @@ export default function PatientForm({
               variant="contained"
               color="primary"
               type="submit"
-              disabled={!formik.isValid || !formik.dirty}
+              disabled={!formik.isValid || !formik.dirty || isLoading}
             >
               Submit
             </Button>

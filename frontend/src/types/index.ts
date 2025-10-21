@@ -46,3 +46,8 @@ export type PostNewDoctorRequest = {
   phone: string;
   specialization: string;
 };
+
+export type AuthRequest = {
+  email: string;
+  password: string;
+};

@@ -1,11 +1,13 @@
 package com.mattevaitcs.hospital_management;
 
 import com.github.javafaker.Faker;
+import com.mattevaitcs.hospital_management.dtos.AuthRequest;
 import com.mattevaitcs.hospital_management.entities.Doctor;
 import com.mattevaitcs.hospital_management.entities.Patient;
 import com.mattevaitcs.hospital_management.entities.enums.BiologicalSex;
 import com.mattevaitcs.hospital_management.repositories.DoctorRepository;
 import com.mattevaitcs.hospital_management.repositories.PatientRepository;
+import com.mattevaitcs.hospital_management.services.UserCredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +26,9 @@ public class HospitalManagementApplication implements CommandLineRunner {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private UserCredentialService userCredentialService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HospitalManagementApplication.class, args);
@@ -109,5 +114,7 @@ public class HospitalManagementApplication implements CommandLineRunner {
         doctorRepository.saveAll(doctors);
         patientRepository.saveAll(patients);
         System.out.println("Sample patients generated and saved to the database.");
+        AuthRequest request = new AuthRequest("admin@horrorcore.com", "Gudmord92!");
+        userCredentialService.createUserCredentials(request);
     }
 }

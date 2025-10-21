@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
 import type {
+  AuthRequest,
   DoctorInformation,
   PatientInformation,
   PostNewPatientRequest,
@@ -7,6 +8,9 @@ import type {
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    Authorization: "Bearer " + sessionStorage.getItem("jwt") || "",
+  },
 });
 
 export const getAllPatients = async (): Promise<PatientInformation[]> => {
@@ -36,5 +40,15 @@ export const postNewPatient = async (data: PostNewPatientRequest) => {
     throw new Error(
       "An error has occurred while posting new patient " + response.statusText,
     );
+  return response.data;
+};
+
+export const login = async (data: AuthRequest) => {
+  const response: AxiosResponse<string> = await axiosInstance.post(
+    "/auth/login",
+    data,
+  );
+  if (response.status !== 200) throw new Error("Invalid username/password");
+
   return response.data;
 };

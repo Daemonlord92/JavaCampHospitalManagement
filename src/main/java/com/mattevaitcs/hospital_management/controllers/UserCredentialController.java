@@ -13,7 +13,7 @@ public class UserCredentialController {
     private final UserCredentialService userCredentialService;
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Void> register(@RequestBody AuthRequest authRequest) {
         userCredentialService.createUserCredentials(authRequest);
         return ResponseEntity.noContent().build();
     }
