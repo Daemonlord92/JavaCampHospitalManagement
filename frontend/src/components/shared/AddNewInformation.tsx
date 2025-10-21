@@ -1,4 +1,4 @@
-import { JSX, useState } from "react";
+import { type JSX, useState } from "react";
 import { Modal, Box, Tabs, Tab } from "@mui/material";
 import type { QueryClient } from "@tanstack/react-query";
 import PatientForm from "./PatientForm";

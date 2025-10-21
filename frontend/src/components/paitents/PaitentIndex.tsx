@@ -53,7 +53,7 @@ const PatientIndex = ({
   };
 
   // Add handleOpen to each row for the renderCell
-  const rows = listOfPatients.map((patient) => ({
+  const rows = (listOfPatients ?? []).map((patient) => ({
     ...patient,
     handleOpen: () => handleOpen(patient),
     handleDoctors: () => handleDoctors(patient.id),

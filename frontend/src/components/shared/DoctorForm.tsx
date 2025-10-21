@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import type { QueryClient } from "@tanstack/react-query";
 import { Box, Button, TextField } from "@mui/material";
 import type { PostNewDoctorRequest } from "../../types/index";
+import { type JSX } from "react";
 
 const doctorSchema = Yup.object({
   firstName: Yup.string().required("Required"),
